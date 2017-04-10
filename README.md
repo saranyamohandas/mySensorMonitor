@@ -1,1 +1,1 @@
-##Enlighted Sensor Monitoring System##
+##Sensor Monitoring System##
