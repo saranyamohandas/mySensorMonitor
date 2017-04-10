@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+
+    <title>Enlighted</title>    
+    <!-- Latest compiled and minified CSS -->
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css"> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.5.6/angular-mocks.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/backend.js"></script>
+    
+    
+    
+ </head>
+
+   <body ng-app="myApp">
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Sensor Monitoring System</a>
+        </div>
+       
+      </div>
+    </nav>
+       <div class="container" ng-controller="mainCtrl">
+       <h4> Time : {{data.time}}</h4>
+<div class="row">
+  
+  <div class="col-sm-4">
+   
+       
+   </div >
+   <div class="col-sm-offset-4 col-sm-4"> 
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search by tag" ng-model="tagSearch.tags">
+      <span class="input-group-btn">
+        <button class="btn btn-info" type="button">Go!</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+                     
+
+       <br/><br/>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr>
+              <th ng-click="sort('id')">ID &nbsp;<span class="glyphicon" ng-show="sortKey=='id'" ng-class="{'glyphicon-triangle-bottom':reverse,'glyphicon-triangle-top':!reverse}"></span></th>
+                <th ng-click="sort('x-coord')">X-Coord &nbsp;<span class="glyphicon sort-icon" ng-show="sortKey=='x-coord'" ng-class="{'glyphicon-triangle-bottom':reverse,'glyphicon-triangle-top':!reverse}"></span></th>
+              <th ng-click="sort('y-coord')">Y-Coord&nbsp;<span class="glyphicon sort-icon" ng-show="sortKey=='y-coord'" ng-class="{'glyphicon-triangle-bottom':reverse,'glyphicon-triangle-top':!reverse}"></span></th>
+              <th ng-click="sort('status')">Status&nbsp;<span class="glyphicon sort-icon" ng-show="sortKey=='status'" ng-class="{'glyphicon-triangle-bottom':reverse,'glyphicon-triangle-top':!reverse}"></span></th>
+              <th ng-click="sort('tags')">Tags&nbsp;<span class="glyphicon sort-icon" ng-show="sortKey=='tags'" ng-class="{'glyphicon-triangle-bottom':reverse,'glyphicon-triangle-top':!reverse}"></span></th>
+              
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="d in data.sensorList | orderBy : sortKey:reverse | filter: tagSearch | filter : paginate" 
+             ng-class="{'bad':d.status=='bad'}">
+              <td> {{d.id}}</td>
+              <td>{{d['x-coord']}}</td>
+              <td>{{d['y-coord']}}</td>               
+              <td>{{d.status}}</td>
+              <td> {{d.tags.join(" ")}}</td>
+              
+            </tr>
+          </tbody>
+        </table>
+        
+        <pagination total-items="totalItems" 
+         ng-model="currentPage"
+          max-size="5" boundary-links="true"
+          items-per-page="numPerPage" class="pagination-sm">
+        </pagination>
+        
+       
+       </div>
+        
+    
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+
+    <script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.js"></script>
+    
+  </body>
+</html>
